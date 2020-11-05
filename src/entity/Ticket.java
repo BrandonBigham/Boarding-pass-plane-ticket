@@ -56,7 +56,7 @@ public class Ticket {
         this.flightTime = flightTime;
     }
 
-    public static String getTimezone() {
+    public  String getTimezone() {
         return timezone;
     }
     public void setTimezone(String timezone) {
