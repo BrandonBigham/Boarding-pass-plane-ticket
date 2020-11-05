@@ -253,6 +253,9 @@ public class TicketPrinter {
 
         String finalDestination = destination;
         Time finalEta = finaleta;
+        Ticket ticket1 = new Ticket();
+        int ticketPrice = ticket1.getTicketPrice();
+
         class WriteToFile {
             public void main(String[] args) {
                 try {
@@ -260,7 +263,7 @@ public class TicketPrinter {
                     myWriter.write("Boarding Pass #: " + ticket_number + "\nDate: " + date + "\nOrigin: DFW\n"
                             + "Destination: " + finalDestination + "\nETA: " + finalEta + "\nDeparture Time: " + sqlTime
                             + "\nName: " + firstName + " " + lastName + "\nEmail: " + email + "\nPhone Number: "
-                            + phone_number + "\nGender: " + gender + "\nAge: " + age + "Total Ticket Price: ");
+                            + phone_number + "\nGender: " + gender + "\nAge: " + age + "Total Ticket Price: " + ticketPrice);
                     myWriter.close();
                     System.out.println("Successfully wrote to the file.");
                 } catch (IOException e) {
