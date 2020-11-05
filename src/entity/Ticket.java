@@ -19,7 +19,7 @@ public class Ticket {
     private Time flightTime;
 
     @Column(name = "timezone")
-    private String timezone;
+    private static String timezone;
 
     @Column(name = "ticket_price")
     private int ticketPrice;
