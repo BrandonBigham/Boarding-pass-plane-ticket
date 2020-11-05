@@ -50,7 +50,7 @@ import java.sql.*;
         public Passenger() {
         }
 
-        public Passenger(String firstName, String lastName, String email, String phone_number, String gender, int age, Date date, String destination, Time departure_time) {
+        public Passenger(String firstName, String lastName, String email, String phone_number, String gender, int age, Date date, String destination, Time departure_time, int ticket_number, Time eta) {
             this.firstName = firstName;
             this.lastName = lastName;
             this.email = email;
@@ -60,6 +60,8 @@ import java.sql.*;
             this.date = date;
             this.destination = destination;
             this.departure_time = departure_time;
+            this.ticket_number = ticket_number;
+            this.eta= eta;
         }
 
         //Getters and Setters
