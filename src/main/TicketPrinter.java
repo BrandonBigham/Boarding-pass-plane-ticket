@@ -253,8 +253,7 @@ public class TicketPrinter {
 
         String finalDestination = destination;
         Time finalEta = finaleta;
-        Ticket ticket1 = new Ticket();
-        int ticketPrice = ticket1.getTicketPrice();
+        int ticketPrice = ticket.getTicketPrice();
 
         class WriteToFile {
             public void main(String[] args) {
@@ -273,8 +272,35 @@ public class TicketPrinter {
             }
         }
 
+        discount(age, gender, ticketPrice);
+        printBoardingPass(ticket_number, date, finalDestination, finalEta, sqlTime, firstName, lastName, email, phone_number, gender, age, ticketPrice);
+    }
 
+    public static int discount(int age, String gender, int ticketPrice){
+        if (age < 12 && gender.equals("female")){
+            ticketPrice = (int) (ticketPrice * .25);
+            return ticketPrice;
+        } else if (age > 60 && gender.equals("female")){
+            ticketPrice = (int) (ticketPrice * .15);
+            return ticketPrice;
+        } else if (age < 12){
+            ticketPrice = (int) (ticketPrice * .5);
+            return ticketPrice;
+        } else if (age > 60){
+            ticketPrice = (int) (ticketPrice * .4);
+            return ticketPrice;
+        } else if (gender.equals("female")){
+            ticketPrice = (int) (ticketPrice * .75);
+            return ticketPrice;
+        }
+        return ticketPrice;
+    }
 
+    public static void printBoardingPass(int ticket_number,Date date,String finalDestination,Time finalEta,Time sqlTime,String firstName,String lastName,String email,String phone_number,String gender,int age,int ticketPrice){
+        System.out.println("Boarding Pass #: " + ticket_number + "Date: " + date + "Origin: DFW"
+                + "Destination: " + finalDestination + "ETA: " + finalEta + "Departure Time: " + sqlTime
+                + "\nName: " + firstName + " " + lastName + "Email: " + email + "Phone Number: "
+                + phone_number + "Gender: " + gender + "Age: " + age + "\n Total Ticket Price: " + ticketPrice);
     }
 
 }
