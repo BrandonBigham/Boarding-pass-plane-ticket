@@ -1,11 +1,15 @@
 package main;
 
+import com.mysql.cj.Query;
 import entity.Passenger;
 import entity.Ticket;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import javax.persistence.EntityManager;
 import java.sql.Date;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
@@ -15,6 +19,8 @@ import java.util.Scanner;
 import java.util.SimpleTimeZone;
 
 public class TicketPrinter {
+
+    private static SessionFactory factory;
 
     public static String Ticket(String[] arr1, String[] arr2){
         String ticket = "";
@@ -26,6 +32,8 @@ public class TicketPrinter {
         }
         return ticket;
     }
+
+
 
     public static void main(String[] args){
         SessionFactory factory = new Configuration().configure("hibernate.cfg.xml")
@@ -59,6 +67,135 @@ public class TicketPrinter {
         System.out.println(date);
         System.out.println("Enter your destination");
         String destination = input.nextLine();
+
+        Session session = factory.openSession();
+        String time_zone = (String) session.createQuery("select ticket.timezone from Ticket ticket where ticket.destination = :destination").setString("destination",destination).uniqueResult();
+        Time eta = (Time) session.createQuery("select ticket.eta from Ticket ticket where ticket.destination = :destination").setString("destination",destination).uniqueResult();
+        Time finaleta = null;
+        factory.close();
+
+        if (time_zone == "PST") {
+            String eta1 = "";
+            for (int i = 0; i < 2; i++) {
+                eta1 += (String.valueOf(eta)).charAt(i);
+            }
+
+            int eta2 = Integer.parseInt(eta1) - 2;
+            String eta3 = String.valueOf(eta2);
+            for (int i = 2; i < 8; i++) {
+                eta3 += (String.valueOf(eta)).charAt(i);
+            }
+
+            finaleta = Time.valueOf(eta3);
+        }
+
+        else if (time_zone == "MST") {
+            String eta1 = "";
+            for (int i = 0; i < 2; i++) {
+                eta1 += (String.valueOf(eta)).charAt(i);
+            }
+
+            int eta2 = Integer.parseInt(eta1) - 1;
+            String eta3 = String.valueOf(eta2);
+            for (int i = 2; i < 8; i++) {
+                eta3 += (String.valueOf(eta)).charAt(i);
+            }
+
+            finaleta = Time.valueOf(eta3);
+        }
+
+        else if (time_zone == "EST") {
+            String eta1 = "";
+            for (int i = 0; i < 2; i++) {
+                eta1 += (String.valueOf(eta)).charAt(i);
+            }
+
+            int eta2 = Integer.parseInt(eta1) + 1;
+            String eta3 = String.valueOf(eta2);
+            for (int i = 2; i < 8; i++) {
+                eta3 += (String.valueOf(eta)).charAt(i);
+            }
+
+            finaleta = Time.valueOf(eta3);
+        }
+
+        else if (time_zone == "AKST") {
+            String eta1 = "";
+            for (int i = 0; i < 2; i++) {
+                eta1 += (String.valueOf(eta)).charAt(i);
+            }
+
+            int eta2 = Integer.parseInt(eta1) - 4;
+            String eta3 = String.valueOf(eta2);
+            for (int i = 2; i < 8; i++) {
+                eta3 += (String.valueOf(eta)).charAt(i);
+            }
+
+            finaleta = Time.valueOf(eta3);
+        }
+
+        else if (time_zone == "UTC-5") {
+            String eta1 = "";
+            for (int i = 0; i < 2; i++) {
+                eta1 += (String.valueOf(eta)).charAt(i);
+            }
+
+            int eta2 = Integer.parseInt(eta1) + 1;
+            String eta3 = String.valueOf(eta2);
+            for (int i = 2; i < 8; i++) {
+                eta3 += (String.valueOf(eta)).charAt(i);
+            }
+
+            finaleta = Time.valueOf(eta3);
+        }
+
+        else if (time_zone == "CET") {
+            String eta1 = "";
+            for (int i = 0; i < 2; i++) {
+                eta1 += (String.valueOf(eta)).charAt(i);
+            }
+
+            int eta2 = Integer.parseInt(eta1) + 7;
+            String eta3 = String.valueOf(eta2);
+            for (int i = 2; i < 8; i++) {
+                eta3 += (String.valueOf(eta)).charAt(i);
+            }
+
+            finaleta = Time.valueOf(eta3);
+        }
+
+        else if (time_zone == "UTC+3") {
+            String eta1 = "";
+            for (int i = 0; i < 2; i++) {
+                eta1 += (String.valueOf(eta)).charAt(i);
+            }
+
+            int eta2 = Integer.parseInt(eta1) + 9;
+            String eta3 = String.valueOf(eta2);
+            for (int i = 2; i < 8; i++) {
+                eta3 += (String.valueOf(eta)).charAt(i);
+            }
+
+            finaleta = Time.valueOf(eta3);
+        }
+
+        else if (time_zone == "UTC+9") {
+            String eta1 = "";
+            for (int i = 0; i < 2; i++) {
+                eta1 += (String.valueOf(eta)).charAt(i);
+            }
+
+            int eta2 = Integer.parseInt(eta1) + 15;
+            String eta3 = String.valueOf(eta2);
+            for (int i = 2; i < 8; i++) {
+                eta3 += (String.valueOf(eta)).charAt(i);
+            }
+
+            finaleta = Time.valueOf(eta3);
+        }
+
+
+
       /*  while (destination.equals()){
             System.out.println("There is no flights to "+ destination);
             destination = input.nextLine();
@@ -72,13 +209,7 @@ public class TicketPrinter {
         String[] timeSplit = time.split(":");
         String[] dateSplit = date.toString().split("-");
         System.out.println(Ticket(timeSplit,dateSplit));
-        try (factoryTicket){
-            Session session = factoryTicket.getCurrentSession();
-            session.beginTransaction();
-            List<Ticket> ticketList = session.createQuery("from Ticket").getResultList();
-            ticketList = session.createQuery("from Ticket where destination=''").getResultList();
 
-        }
        
 /*
        try {
@@ -93,8 +224,6 @@ public class TicketPrinter {
        }
 
  */
-
-
 
 
 

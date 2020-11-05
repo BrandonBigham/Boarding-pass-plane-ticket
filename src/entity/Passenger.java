@@ -40,6 +40,12 @@ import java.sql.*;
         @Column(name = "departure_time") //This will map the company field to the column named departure_time in the passenger table.
         private Time departure_time;
 
+        @Column(name = "ticket_number") //This will map the company field to the column named departure_time in the passenger table.
+        private int ticket_number;
+
+        @Column(name = "eta") //This will map the company field to the column named departure_time in the passenger table.
+        private Time eta;
+
         //Constructors
         public Passenger() {
         }
@@ -139,5 +145,20 @@ import java.sql.*;
             this.departure_time = departure_time;
         }
 
+        public int getTicket_number() {
+            return ticket_number;
+        }
 
-    }
+        public void setTicket_number(int ticket_number) {
+            this.ticket_number = ticket_number;
+        }
+
+        public Time getEta() {
+            return eta;
+        }
+
+        public void setEta(Time eta) {
+            this.eta = eta;
+        }
+
+}
