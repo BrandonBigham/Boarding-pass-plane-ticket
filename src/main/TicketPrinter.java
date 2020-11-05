@@ -63,12 +63,12 @@ public class TicketPrinter {
         String gender = input.nextLine();
         System.out.println("Enter your age");
         int age = input.nextInt();
+        input.nextLine();
+        System.out.println("Enter your destination");
+        String destination = input.nextLine();
         System.out.println("Enter the date");
         System.out.println(date);
 
-
-        System.out.println("Enter your destination");
-        String destination = input.nextLine();
 
         Session session1 = factoryTicket.getCurrentSession();
         session1.beginTransaction();
@@ -80,13 +80,10 @@ public class TicketPrinter {
             System.out.println("Enter another destination");
             destination = input.nextLine();
         }
-        System.out.println(ticket.getTicketPrice());
         session1.getTransaction().commit();
         factoryTicket.close();
 
         Session session = factory.openSession();
-       // String time_zone = (String) session.createQuery("select ticket.timezone from Ticket ticket where ticket.destination = :destination").setString("destination",destination).uniqueResult();
-       // Time eta = (Time) session.createQuery("select ticket.eta from Ticket ticket where ticket.destination = :destination").setString("destination",destination).uniqueResult();
         Time finaleta = null;
         factory.close();
 
