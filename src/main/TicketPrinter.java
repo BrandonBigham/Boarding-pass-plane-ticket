@@ -34,7 +34,6 @@ public class TicketPrinter {
     }
 
 
-
     public static void main(String[] args){
         SessionFactory factory = new Configuration().configure("hibernate.cfg.xml")
                 .addAnnotatedClass(Passenger.class)
@@ -67,6 +66,14 @@ public class TicketPrinter {
         System.out.println(date);
         System.out.println("Enter your destination");
         String destination = input.nextLine();
+       /*
+        Session session1 = factory.openSession();
+        while (destination.equals()){
+            System.out.println("There is no flights to "+ destination);
+            destination = input.nextLine();
+        }
+
+        */
 
         Session session = factory.openSession();
         String time_zone = (String) session.createQuery("select ticket.timezone from Ticket ticket where ticket.destination = :destination").setString("destination",destination).uniqueResult();
@@ -194,14 +201,6 @@ public class TicketPrinter {
             finaleta = Time.valueOf(eta3);
         }
 
-
-
-      /*  while (destination.equals()){
-            System.out.println("There is no flights to "+ destination);
-            destination = input.nextLine();
-        }
-
-       */
         System.out.println("Enter your departure time as HH:MM");
         String time = input.nextLine();
         Time sqlTime = Time.valueOf(time+":00");
@@ -211,11 +210,11 @@ public class TicketPrinter {
         System.out.println(Ticket(timeSplit,dateSplit));
 
        
-/*
+
        try {
-            Session session = factory.getCurrentSession();
+            Session session2 = factory.getCurrentSession();
             Passenger passenger = new Passenger(firstName,lastName,
-                    email,phoneNumber,gender,age,date,destination,sqlTime);
+                    email,phoneNumber,gender,age,date,destination,sqlTime,Ticket(timeSplit,dateSplit),/* needs eta*/);
             session.beginTransaction();
             session.save(passenger);
             session.getTransaction().commit();
@@ -223,7 +222,7 @@ public class TicketPrinter {
            factory.close();
        }
 
- */
+
 
 
 
