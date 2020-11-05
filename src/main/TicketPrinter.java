@@ -8,6 +8,9 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
 import javax.persistence.EntityManager;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
@@ -47,7 +50,7 @@ public class TicketPrinter {
         ArrayList<String> tickets = new ArrayList<>();
 
 
-      /*
+
        System.out.println("Enter your first name");
         String firstName = input.nextLine();
         System.out.println("Enter your last name");
@@ -55,7 +58,7 @@ public class TicketPrinter {
         System.out.println("Enter your email");
         String email  = input.nextLine();
         System.out.println("Enter your phone number");
-        String phoneNumber = input.nextLine();
+        String phone_number = input.nextLine();
         System.out.println("what is your gender");
         String gender = input.nextLine();
         System.out.println("Enter your age");
@@ -63,7 +66,7 @@ public class TicketPrinter {
         System.out.println("Enter the date");
         System.out.println(date);
 
-       */
+
         System.out.println("Enter your destination");
         String destination = input.nextLine();
 
@@ -215,12 +218,13 @@ public class TicketPrinter {
         String[] dateSplit = date.toString().split("-");
         System.out.println(Ticket(timeSplit,dateSplit));
 
+        int ticket_number = Integer.parseInt(Ticket(timeSplit,dateSplit));
        
-       /*
+
        try {
             Session session2 = factory.getCurrentSession();
-            Passenger passenger = new Passenger(firstName,lastName,
-                    email,phoneNumber,gender,age,date,destination,sqlTime,Ticket(timeSplit,dateSplit), needs eta);
+            Passenger passenger = new Passenger(firstName, lastName,
+                    email, phone_number, gender, age, date, destination, sqlTime, ticket_number, finaleta);
             session.beginTransaction();
             session.save(passenger);
             session.getTransaction().commit();
@@ -228,10 +232,43 @@ public class TicketPrinter {
            factory.close();
        }
 
-        */
 
 
 
+        class CreateFile {
+            public void main(String[] args) {
+                try {
+                    File myObj = new File("/Users/Dhruvil/Desktop/Java_Assignments/Boarding-pass-plane-ticket/src/Ticket.txt");
+                    if (myObj.createNewFile()) {
+                        System.out.println("File created: " + myObj.getName());
+                    } else {
+                        System.out.println("File already exists.");
+                    }
+                } catch (IOException e) {
+                    System.out.println("An error occurred.");
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        String finalDestination = destination;
+        Time finalEta = finaleta;
+        class WriteToFile {
+            public void main(String[] args) {
+                try {
+                    FileWriter myWriter = new FileWriter("/Users/Dhruvil/Desktop/Java_Assignments/Boarding-pass-plane-ticket/src/Ticket.txt");
+                    myWriter.write("Boarding Pass #: " + ticket_number + "\nDate: " + date + "\nOrigin: DFW\n"
+                            + "Destination: " + finalDestination + "\nETA: " + finalEta + "\nDeparture Time: " + sqlTime
+                            + "\nName: " + firstName + " " + lastName + "\nEmail: " + email + "\nPhone Number: "
+                            + phone_number + "\nGender: " + gender + "\nAge: " + age + "Total Ticket Price: ");
+                    myWriter.close();
+                    System.out.println("Successfully wrote to the file.");
+                } catch (IOException e) {
+                    System.out.println("An error occurred.");
+                    e.printStackTrace();
+                }
+            }
+        }
 
 
 
