@@ -41,7 +41,7 @@ import java.sql.*;
         private Time departure_time;
 
         @Column(name = "ticket_number") //This will map the company field to the column named departure_time in the passenger table.
-        private int ticket_number;
+        private long ticket_number;
 
         @Column(name = "eta") //This will map the company field to the column named departure_time in the passenger table.
         private Time eta;
@@ -50,7 +50,7 @@ import java.sql.*;
         public Passenger() {
         }
 
-        public Passenger(String firstName, String lastName, String email, String phone_number, String gender, int age, Date date, String destination, Time departure_time, int ticket_number, Time eta) {
+        public Passenger(String firstName, String lastName, String email, String phone_number, String gender, int age, Date date, String destination, Time departure_time, long ticket_number, Time eta) {
             this.firstName = firstName;
             this.lastName = lastName;
             this.email = email;
@@ -147,7 +147,7 @@ import java.sql.*;
             this.departure_time = departure_time;
         }
 
-        public int getTicket_number() {
+        public long getTicket_number() {
             return ticket_number;
         }
 

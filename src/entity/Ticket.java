@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.sql.Time;
 
 @Entity
-
 @Table(name = "ticket")
 public class Ticket {
     @Id //This will map the primary key
@@ -19,7 +18,7 @@ public class Ticket {
     private Time flightTime;
 
     @Column(name = "timezone")
-    private static String timezone;
+    private String timezone;
 
     @Column(name = "ticket_price")
     private int ticketPrice;
