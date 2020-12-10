@@ -252,13 +252,9 @@ public class TicketPrinter {
            factoryTicket.close();
        }
 
+       try {
 
-
-
-        class CreateFile {
-            public void main(String[] args) {
-                try {
-                    File myObj = new File("/Users/Dhruvil/Desktop/Java_Assignments/Boarding-pass-plane-ticket/src/Ticket.txt");
+           File myObj = new File("C:\\Users\\merri\\Documents\\PlaneTicket\\Boarding-pass-plane-ticket\\src\\Ticket.txt");
                     if (myObj.createNewFile()) {
                         System.out.println("File created: " + myObj.getName());
                     } else {
@@ -268,17 +264,13 @@ public class TicketPrinter {
                     System.out.println("An error occurred.");
                     e.printStackTrace();
                 }
-            }
-        }
 
         String finalDestination = destination;
         int ticketPrice = ticket.getTicketPrice();
 
         Time finalEta = finaleta;
-        class WriteToFile {
-            public void main(String[] args) {
                 try {
-                    FileWriter myWriter = new FileWriter("/Users/Dhruvil/Desktop/Java_Assignments/Boarding-pass-plane-ticket/src/Ticket.txt");
+                    FileWriter myWriter = new FileWriter("Users\\merri\\Documents\\PlaneTicket\\Boarding-pass-plane-ticket\\sr\\Ticket.txt");
                     myWriter.write("Boarding Pass #: " + ticket_number + "\nDate: " + date + "\nOrigin: DFW\n"
                             + "Destination: " + finalDestination + "\nETA: " + finalEta + "\nDeparture Time: " + sqlTime
                             + "\nName: " + firstName + " " + lastName + "\nEmail: " + email + "\nPhone Number: "
@@ -289,8 +281,7 @@ public class TicketPrinter {
                     System.out.println("An error occurred.");
                     e.printStackTrace();
                 }
-            }
-        }
+
 
         discount(age, gender, ticketPrice);
         printBoardingPass(ticket_number, date, finalDestination, finalEta, sqlTime, firstName, lastName, email, phone_number, gender, age, ticketPrice);
